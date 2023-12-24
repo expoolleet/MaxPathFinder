@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExCSS;
 
 namespace MaxNetworkPathFindingAlgorithm.Classes
 {
@@ -24,10 +18,11 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
     {
         public float X { get; private set; }
         public float Y { get; private set; }
-        public int Number { get; private set; }
+        public int Number { get;  set; }
         public float R { get; private set; }
         public bool IsSelected { get; set; }
-        public bool IsConnectedWithEdge { get; set; }
+        
+        public float Epsilon { get; set; }
 
         public GraphicsPath VertexGraphicsPath { get; private set; }
 
@@ -48,8 +43,6 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
             };
 
             ArrowConnectPoint = connectPoint;
-
-
         }
 
         public void ShowInfo()
@@ -59,9 +52,6 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
 
         public void ChangePosition(float x, float y)
         {
-            //float offsetX = x - VertexGraphicsPath.GetBounds().Width * R / 2;
-            //float offsetY = y - VertexGraphicsPath.GetBounds().Height * R / 2;
-            
             var matrix = new Matrix();
 
             matrix.Translate(x - X, y - Y, MatrixOrder.Append);
@@ -80,14 +70,25 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
             ArrowConnectPoint = connectPoint;
         }
 
-        public void Delete()
+        public static void SortListByNumbers(List<Vertex> vertices)
         {
-            X = 0;
-            Y = 0;
-            R = 0;
-            Number = 0;
-            IsSelected = false;
-            VertexGraphicsPath = null;        
+            for (int i = 0; i < vertices.Count - 1; i++)
+            {      
+                for (int j = 0; j < vertices.Count - 1; j++)
+                {
+                    if (vertices[j].Number > vertices[j + 1].Number)
+                    {
+                        var ver = vertices[j];
+                        vertices[j] = vertices[j + 1];
+                        vertices[j + 1] = ver;
+                    }
+                }           
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"\nКоординаты: x: {X}; y:{Y}\nНомер: {Number}\nРасстояние до вершины: {Epsilon}";
         }
     }
 }

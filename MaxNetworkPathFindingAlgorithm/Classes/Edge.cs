@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing.Drawing2D;
 
 namespace MaxNetworkPathFindingAlgorithm.Classes
 {
@@ -28,6 +23,11 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
             Length = length;
             EdgeLineGraphicsPath = line;
             EdgeArrowGraphicsPath = arrow;
+        }
+
+        public bool IsLastVertex(Vertex v)
+        {
+            return V2 == v;
         }
 
         public bool ContainsVertex(Vertex v)
