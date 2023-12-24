@@ -10,6 +10,16 @@ using ExCSS;
 
 namespace MaxNetworkPathFindingAlgorithm.Classes
 {
+    public struct EdgeConnectPoint
+    {
+        public float X, Y;
+
+        public override string ToString()
+        {
+            return $"{X}; {Y}";
+        }
+    }
+
     internal class Vertex
     {
         public float X { get; private set; }
@@ -20,6 +30,9 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
         public bool IsConnectedWithEdge { get; set; }
 
         public GraphicsPath VertexGraphicsPath { get; private set; }
+
+        public EdgeConnectPoint ArrowConnectPoint { get; private set; }
+
         public Vertex(float x, float y, float r, int num, GraphicsPath path) 
         {
             X = x;
@@ -27,6 +40,16 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
             R = r;
             Number = num;
             VertexGraphicsPath = path;
+
+            var connectPoint = new EdgeConnectPoint()
+            {
+                X = this.X - this.R * 2,
+                Y = this.Y
+            };
+
+            ArrowConnectPoint = connectPoint;
+
+
         }
 
         public void ShowInfo()
@@ -36,10 +59,8 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
 
         public void ChangePosition(float x, float y)
         {
-            // X = x - VertexGraphicsPath.GetBounds().Width * R / 2;
-            // Y = y - VertexGraphicsPath.GetBounds().Height * R / 2;
-            float offsetX = x - VertexGraphicsPath.GetBounds().Width * R / 2;
-            float offsetY = y - VertexGraphicsPath.GetBounds().Height * R / 2;
+            //float offsetX = x - VertexGraphicsPath.GetBounds().Width * R / 2;
+            //float offsetY = y - VertexGraphicsPath.GetBounds().Height * R / 2;
             
             var matrix = new Matrix();
 
@@ -49,6 +70,14 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
 
             X = x;
             Y = y;
+
+            var connectPoint = new EdgeConnectPoint()
+            {
+                X = this.X - this.R * 2,
+                Y = this.Y
+            };
+
+            ArrowConnectPoint = connectPoint;
         }
 
         public void Delete()

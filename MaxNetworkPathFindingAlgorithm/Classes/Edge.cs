@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,17 +15,35 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
 
         public float Length { get; private set; }
 
-        public Edge(Vertex v1, Vertex v2, float length) 
+        public bool IsSelected { get; set; }
+
+        public GraphicsPath EdgeLineGraphicsPath { get; private set; }
+
+        public GraphicsPath EdgeArrowGraphicsPath { get; private set; }
+
+        public Edge(Vertex v1, Vertex v2, float length, GraphicsPath line, GraphicsPath arrow)
         {
             V1 = v1;
             V2 = v2;
             Length = length;
+            EdgeLineGraphicsPath = line;
+            EdgeArrowGraphicsPath = arrow;
+        }
+
+        public bool ContainsVertex(Vertex v)
+        {
+            return V1 == v || V2 == v;
         }
 
         public bool ContainsVertices(Vertex v1, Vertex v2)
         {
-            if (V1 == v1 && V2 == v2 || V1 == v2 && V2 == v1) return true;
-            else return false;
+            return (V1 == v1 && V2 == v2) || (V1 == v2 && V2 == v1);
+        }
+
+        public void ChangeGraphicsPaths(GraphicsPath line, GraphicsPath arrow)
+        {
+            EdgeArrowGraphicsPath = arrow;
+            EdgeLineGraphicsPath = line;
         }
     }
 }
