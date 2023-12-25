@@ -37,6 +37,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +47,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.groupBox1.Controls.Add(this.textBox8);
             this.groupBox1.Controls.Add(this.textBox7);
             this.groupBox1.Controls.Add(this.textBox6);
             this.groupBox1.Controls.Add(this.textBox5);
@@ -55,7 +57,7 @@
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(498, 457);
+            this.groupBox1.Size = new System.Drawing.Size(487, 510);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Как пользоваться программой";
@@ -63,11 +65,11 @@
             // textBox7
             // 
             this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(6, 307);
+            this.textBox7.Location = new System.Drawing.Point(245, 211);
             this.textBox7.Multiline = true;
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(233, 136);
+            this.textBox7.Size = new System.Drawing.Size(233, 198);
             this.textBox7.TabIndex = 6;
             this.textBox7.TabStop = false;
             this.textBox7.Text = resources.GetString("textBox7.Text");
@@ -75,14 +77,14 @@
             // textBox6
             // 
             this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.Location = new System.Drawing.Point(254, 19);
+            this.textBox6.Location = new System.Drawing.Point(6, 415);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(233, 106);
+            this.textBox6.Size = new System.Drawing.Size(233, 90);
             this.textBox6.TabIndex = 5;
             this.textBox6.TabStop = false;
-            this.textBox6.Text = resources.GetString("textBox6.Text");
+            this.textBox6.Text = "Внизу главного окна подписывается выбранный вами инструмент";
             // 
             // textBox5
             // 
@@ -100,11 +102,11 @@
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(254, 271);
+            this.textBox4.Location = new System.Drawing.Point(245, 19);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(233, 172);
+            this.textBox4.Size = new System.Drawing.Size(233, 186);
             this.textBox4.TabIndex = 3;
             this.textBox4.TabStop = false;
             this.textBox4.Text = resources.GetString("textBox4.Text");
@@ -112,14 +114,15 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(254, 131);
+            this.textBox3.Location = new System.Drawing.Point(6, 307);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(233, 134);
+            this.textBox3.Size = new System.Drawing.Size(233, 102);
             this.textBox3.TabIndex = 2;
             this.textBox3.TabStop = false;
-            this.textBox3.Text = resources.GetString("textBox3.Text");
+            this.textBox3.Text = "Чтобы очистить полностью поле для построения графа, нажмите на кнопку \"Очистить п" +
+    "ространство\". Также данное действие сбрасывает нумерацию вершин.";
             // 
             // textBox2
             // 
@@ -147,12 +150,23 @@
             this.textBox1.Text = "Для того чтобы добавить вершину на серое поле необходимо нажать \"Добавить вершину" +
     "\" на панели инструментов.";
             // 
+            // textBox8
+            // 
+            this.textBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox8.Location = new System.Drawing.Point(245, 414);
+            this.textBox8.Multiline = true;
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.Size = new System.Drawing.Size(233, 90);
+            this.textBox8.TabIndex = 7;
+            this.textBox8.TabStop = false;
+            // 
             // FormHelper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(522, 481);
+            this.ClientSize = new System.Drawing.Size(511, 534);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormHelper";
@@ -175,5 +189,6 @@
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox textBox8;
     }
 }

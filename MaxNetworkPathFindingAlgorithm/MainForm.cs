@@ -164,7 +164,7 @@ namespace MaxNetworkPathFindingAlgorithm
                 case GraphActions.FindMaxPath:
                     if (e.Button == MouseButtons.Left)
                     {
-                        foreach (var vertex in _vertices)
+                        foreach (var vertex in _vertices.ToList())
                         {
                             if (vertex.IsSelected && _firstSelectedVertex == null)
                             {
@@ -524,13 +524,13 @@ namespace MaxNetworkPathFindingAlgorithm
                     {
                         graphics.DrawPath(new Pen(Brushes.Gray, _thickness / 2), edge.EdgeLineGraphicsPath);
                         graphics.FillPath(Brushes.Gray, edge.EdgeArrowGraphicsPath);
+                        graphics.DrawRectangle(new Pen(Brushes.Gray, _thickness), x, y, number.Length * widthMul, height);
                     }
                 }
                 else
                 {
                     graphics.DrawPath(new Pen(Brushes.Gray, _thickness / 2), edge.EdgeLineGraphicsPath);
                     graphics.FillPath(Brushes.Gray, edge.EdgeArrowGraphicsPath);
-
                     graphics.DrawRectangle(new Pen(Brushes.Gray, _thickness), x, y, number.Length * widthMul, height);
                 }
                 graphics.FillRectangle(Brushes.LightCyan, x, y, number.Length * widthMul, height);

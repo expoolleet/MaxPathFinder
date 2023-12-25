@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ExCSS;
+using System.Collections.Generic;
+using System.Windows.Forms.VisualStyles;
 
 namespace MaxNetworkPathFindingAlgorithm.Classes
 {
@@ -16,14 +18,24 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
 
             int edgeIndex = 0;
 
+            float max = 0;
+
+            Edge potentialEdge = null;
+
             for (int i = vertices.IndexOf(v1) + 1; i <= vertices.IndexOf(v2); i++)
             {
-                float max = 0;
+                max = 0;
 
                 for (int j = 0; j < edges.Count; j++)
                 {
+
                     if (edges[j].IsLastVertex(vertices[i]))
                     {
+                        if (edges[j].ContainsVertices(v1, v2))
+                        {
+                            potentialEdge = edges[j];
+                        }
+
                         if ((edges[j].V1.Epsilon + edges[j].Length) > max)
                         {
                             max = edges[j].V1.Epsilon + edges[j].Length;
@@ -34,7 +46,14 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
                 vertices[i].Epsilon = max;
 
                 if (edges.Count != 0)
+                {
                     pathEdges.Add(edges[edgeIndex]);
+                }
+            }
+
+            if (potentialEdge != null && potentialEdge.Length == v2.Epsilon)
+            {
+                return pathVertices;
             }
 
             for (int i = vertices.IndexOf(v2); i >= 0; i--)
