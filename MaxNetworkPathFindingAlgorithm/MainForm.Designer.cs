@@ -30,21 +30,25 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.buttonHelp = new System.Windows.Forms.Button();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.buttonFord = new System.Windows.Forms.Button();
             this.buttonVertexTransform = new System.Windows.Forms.Button();
             this.buttonDeleteGraph = new System.Windows.Forms.Button();
             this.buttonVertexAdd = new System.Windows.Forms.Button();
             this.buttonVertexRemove = new System.Windows.Forms.Button();
             this.buttonVertexConnect = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonFord = new System.Windows.Forms.Button();
+            this.buttonHelp = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.pictureBoxGraph = new System.Windows.Forms.PictureBox();
+            this.textBoxPath = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.buttonAuthor = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -54,7 +58,7 @@
             this.groupBox1.Controls.Add(this.buttonVertexAdd);
             this.groupBox1.Controls.Add(this.buttonVertexRemove);
             this.groupBox1.Controls.Add(this.buttonVertexConnect);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -62,66 +66,6 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Управление";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.buttonFord);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.groupBox2.Location = new System.Drawing.Point(808, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(164, 67);
-            this.groupBox2.TabIndex = 7;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Алгоритм Форда";
-            // 
-            // buttonHelp
-            // 
-            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHelp.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.buttonHelp.Location = new System.Drawing.Point(867, 595);
-            this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(98, 33);
-            this.buttonHelp.TabIndex = 8;
-            this.buttonHelp.Text = "Руководство";
-            this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 654);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(982, 22);
-            this.statusStrip1.TabIndex = 9;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
-            // 
-            // buttonFord
-            // 
-            this.buttonFord.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonFord.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonFord.BackgroundImage")));
-            this.buttonFord.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.buttonFord.FlatAppearance.BorderSize = 2;
-            this.buttonFord.FlatAppearance.CheckedBackColor = System.Drawing.Color.Brown;
-            this.buttonFord.FlatAppearance.MouseDownBackColor = System.Drawing.Color.CornflowerBlue;
-            this.buttonFord.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
-            this.buttonFord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonFord.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.buttonFord.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonFord.Location = new System.Drawing.Point(6, 19);
-            this.buttonFord.Name = "buttonFord";
-            this.buttonFord.Size = new System.Drawing.Size(151, 32);
-            this.buttonFord.TabIndex = 6;
-            this.buttonFord.Text = "Начать поиск";
-            this.buttonFord.UseVisualStyleBackColor = false;
-            this.buttonFord.Click += new System.EventHandler(this.buttonFord_Click);
             // 
             // buttonVertexTransform
             // 
@@ -223,6 +167,66 @@
             this.buttonVertexConnect.UseVisualStyleBackColor = false;
             this.buttonVertexConnect.Click += new System.EventHandler(this.buttonVertexConnect_Click);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.buttonFord);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.groupBox2.Location = new System.Drawing.Point(808, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(164, 67);
+            this.groupBox2.TabIndex = 7;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Алгоритм Форда";
+            // 
+            // buttonFord
+            // 
+            this.buttonFord.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonFord.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonFord.BackgroundImage")));
+            this.buttonFord.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.buttonFord.FlatAppearance.BorderSize = 2;
+            this.buttonFord.FlatAppearance.CheckedBackColor = System.Drawing.Color.Brown;
+            this.buttonFord.FlatAppearance.MouseDownBackColor = System.Drawing.Color.CornflowerBlue;
+            this.buttonFord.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.buttonFord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonFord.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.buttonFord.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonFord.Location = new System.Drawing.Point(6, 19);
+            this.buttonFord.Name = "buttonFord";
+            this.buttonFord.Size = new System.Drawing.Size(151, 32);
+            this.buttonFord.TabIndex = 6;
+            this.buttonFord.Text = "Начать поиск";
+            this.buttonFord.UseVisualStyleBackColor = false;
+            this.buttonFord.Click += new System.EventHandler(this.buttonFord_Click);
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHelp.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.buttonHelp.Location = new System.Drawing.Point(788, 607);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(90, 38);
+            this.buttonHelp.TabIndex = 8;
+            this.buttonHelp.Text = "Руководство";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 654);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(984, 22);
+            this.statusStrip1.TabIndex = 9;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
             // pictureBoxGraph
             // 
             this.pictureBoxGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -233,7 +237,7 @@
             this.pictureBoxGraph.InitialImage = global::MaxNetworkPathFindingAlgorithm.Properties.Resources.round_png_circle_empty_download_19;
             this.pictureBoxGraph.Location = new System.Drawing.Point(12, 85);
             this.pictureBoxGraph.Name = "pictureBoxGraph";
-            this.pictureBoxGraph.Size = new System.Drawing.Size(960, 556);
+            this.pictureBoxGraph.Size = new System.Drawing.Size(962, 511);
             this.pictureBoxGraph.TabIndex = 0;
             this.pictureBoxGraph.TabStop = false;
             this.pictureBoxGraph.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxGraph_Paint);
@@ -242,21 +246,62 @@
             this.pictureBoxGraph.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGraph_MouseMove);
             this.pictureBoxGraph.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGraph_MouseUp);
             // 
+            // textBoxPath
+            // 
+            this.textBoxPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBoxPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPath.Location = new System.Drawing.Point(6, 19);
+            this.textBoxPath.Name = "textBoxPath";
+            this.textBoxPath.ReadOnly = true;
+            this.textBoxPath.Size = new System.Drawing.Size(301, 29);
+            this.textBoxPath.TabIndex = 10;
+            this.textBoxPath.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.Controls.Add(this.textBoxPath);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.groupBox3.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.groupBox3.Location = new System.Drawing.Point(12, 597);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(313, 54);
+            this.groupBox3.TabIndex = 11;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Найденный путь";
+            // 
+            // buttonAuthor
+            // 
+            this.buttonAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAuthor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAuthor.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.buttonAuthor.Location = new System.Drawing.Point(884, 607);
+            this.buttonAuthor.Name = "buttonAuthor";
+            this.buttonAuthor.Size = new System.Drawing.Size(88, 38);
+            this.buttonAuthor.TabIndex = 12;
+            this.buttonAuthor.Text = "Автор";
+            this.buttonAuthor.UseVisualStyleBackColor = true;
+            this.buttonAuthor.Click += new System.EventHandler(this.buttonAuthor_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(982, 676);
+            this.ClientSize = new System.Drawing.Size(984, 676);
+            this.Controls.Add(this.buttonAuthor);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBoxGraph);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(1800, 1000);
-            this.MinimumSize = new System.Drawing.Size(850, 300);
+            this.MinimumSize = new System.Drawing.Size(1000, 300);
             this.Name = "MainForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Построение графа / Поиск наибольшего пути в сети";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -267,6 +312,8 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,6 +333,9 @@
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.TextBox textBoxPath;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button buttonAuthor;
     }
 }
 

@@ -116,9 +116,16 @@ namespace MaxNetworkPathFindingAlgorithm
 
                                 if (formVertexDialog.ShowDialog() == DialogResult.OK && int.TryParse(formVertexDialog.textBoxVertexNumber.Text, out int number))
                                 {
-                                    formVertexDialog.Focus();
-                                    vertex.Number = number;
-                                    pictureBoxGraph.Invalidate();
+                                    if (number < 100)
+                                    {
+                                        formVertexDialog.Focus();
+                                        vertex.Number = number;
+                                        pictureBoxGraph.Invalidate();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Введите двухзначный номер", "Отмена операции", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
                                 }
                             }
                         }
@@ -176,9 +183,18 @@ namespace MaxNetworkPathFindingAlgorithm
                                 _firstSelectedVertex = null;
 
                                 _lastSelectedVertex = null;
+
+                                textBoxPath.Text = "{";
+                                for (int i = 0; i < _verticesPath.Count; i++)
+                                {
+                                    textBoxPath.Text += (i != _verticesPath.Count - 1) ? $"{_verticesPath[i].Number}, " : $"{_verticesPath[i].Number}" + "}";
+                                }
+                                //MessageBox.Show("Путь найден!", "Наибольший путь", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                         pictureBoxGraph.Invalidate();
+
+                       
                     }
                     break;
             }
@@ -293,6 +309,9 @@ namespace MaxNetworkPathFindingAlgorithm
 
         private void AddVertex(int x, int y)
         {
+            if (_vertexCount > 99)
+                return;
+
             var graphicsPath = CreateGraphicsPath(_vertexSvgStringData);
 
             float X = x - graphicsPath.GetBounds().Width * _sizeMul / 2;
@@ -388,6 +407,7 @@ namespace MaxNetworkPathFindingAlgorithm
             _firstSelectedVertex = null;
             _isPathFinded = false;
             pictureBoxGraph.Invalidate();
+            textBoxPath.Text = string.Empty;
         }
 
         private void RedrawVertices(Graphics graphics)
@@ -606,6 +626,11 @@ namespace MaxNetworkPathFindingAlgorithm
             {
                 e.Handled = true;
             }
+        }
+
+        private void buttonAuthor_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Автором программы является студент ПГУ им. Шевченко Щербак Георгий", "Проект курсовой работы", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
