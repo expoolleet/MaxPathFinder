@@ -41,7 +41,6 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
                 X = this.X - this.R * 2,
                 Y = this.Y
             };
-
             ArrowConnectPoint = connectPoint;
         }
 
@@ -66,7 +65,6 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
                 X = this.X - this.R * 2,
                 Y = this.Y
             };
-
             ArrowConnectPoint = connectPoint;
         }
 

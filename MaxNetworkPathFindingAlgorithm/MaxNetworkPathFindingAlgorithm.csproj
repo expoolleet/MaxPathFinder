@@ -86,7 +86,6 @@
   <ItemGroup>
     <Compile Include="Classes\Edge.cs" />
     <Compile Include="Classes\Ford.cs" />
-    <Compile Include="Classes\MainClass.cs" />
     <Compile Include="Classes\Vertex.cs" />
     <Compile Include="FormEdgeDialog.cs">
       <SubType>Form</SubType>

@@ -53,6 +53,7 @@ namespace MaxNetworkPathFindingAlgorithm
         public MainForm()
         {
             InitializeComponent();
+
             _bitmap = new Bitmap(MaximumSize.Width, MaximumSize.Height);
 
             pictureBoxGraph.Image = _bitmap;
@@ -68,7 +69,6 @@ namespace MaxNetworkPathFindingAlgorithm
             {
                 g.Clear(Color.LightGray);
             }
-
             _vertexCount = 0;
             _vertices = new List<Vertex>();
             _edges = new List<Edge>();
@@ -189,12 +189,9 @@ namespace MaxNetworkPathFindingAlgorithm
                                 {
                                     textBoxPath.Text += (i != _verticesPath.Count - 1) ? $"{_verticesPath[i].Number}, " : $"{_verticesPath[i].Number}" + "}";
                                 }
-                                //MessageBox.Show("Путь найден!", "Наибольший путь", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                         pictureBoxGraph.Invalidate();
-
-                       
                     }
                     break;
             }
@@ -202,29 +199,24 @@ namespace MaxNetworkPathFindingAlgorithm
 
         private void pictureBoxGraph_MouseMove(object sender, MouseEventArgs e)
         {
+            if (TryGetSelectedVertex(out Vertex selectedVertex) && _isVertexDragActionEnabled)
+            {
+                TransformVertex(selectedVertex, e.X, e.Y);
+            }
             foreach (var vertex in _vertices.ToList())
             {
                 if (vertex.VertexGraphicsPath.IsVisible(e.X, e.Y))
                 {
-                    pictureBoxGraph.Invalidate();
-
-                    if (_isVertexDragActionEnabled)
-                    {
-                        TransformVertex(e.X, e.Y);
-                    }
-                    else
+                    if (!CheckIfAnyVertexIsSelected())
                     {
                         vertex.IsSelected = true;
                     }
                 }
                 else
                 {
-                    pictureBoxGraph.Invalidate();
-
                     vertex.IsSelected = false;
-                }
+                }    
             }
-
             foreach (var edge in _edges.ToList())
             {
                 if (edge.EdgeArrowGraphicsPath.IsVisible(e.X, e.Y))
@@ -236,6 +228,32 @@ namespace MaxNetworkPathFindingAlgorithm
                     edge.IsSelected = false;
                 }
             }
+            pictureBoxGraph.Invalidate();
+        }
+
+        private bool TryGetSelectedVertex(out Vertex v)
+        {
+            foreach (var vertex in _vertices.ToList())
+            {
+                if (vertex.IsSelected)
+                {
+                    v = vertex;
+                    return true;
+                }
+
+            }
+            v = null;
+            return false;
+        }
+
+        private bool CheckIfAnyVertexIsSelected()
+        {
+            foreach (var vertex in _vertices.ToList())
+            {
+                if (vertex.IsSelected)
+                    return true;
+            }
+            return false;
         }
 
         private void pictureBoxGraph_MouseUp(object sender, MouseEventArgs e)
@@ -296,13 +314,14 @@ namespace MaxNetworkPathFindingAlgorithm
         {
             CancelVertexConnectionOrAlgorithm();
             ResetGraph();
-            toolStripStatusLabel.Text = "Граф удален";    
+            toolStripStatusLabel.Text = "Граф удален";
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
             FormHelper formHelper = new FormHelper();
             formHelper.Show();
+
             CancelVertexConnectionOrAlgorithm();
             toolStripStatusLabel.Text = "Выбранное действие: " + buttonHelp.Text;
         }
@@ -315,7 +334,6 @@ namespace MaxNetworkPathFindingAlgorithm
             var graphicsPath = CreateGraphicsPath(_vertexSvgStringData);
 
             float X = x - graphicsPath.GetBounds().Width * _sizeMul / 2;
-
             float Y = y - graphicsPath.GetBounds().Height * _sizeMul / 2;
 
             graphicsPath.Transform(new Matrix(1 * _sizeMul, 0, 0, 1 * _sizeMul, X, Y));
@@ -344,11 +362,9 @@ namespace MaxNetworkPathFindingAlgorithm
                             _edges.Remove(edge);
                         }
                     }
-
                     pictureBoxGraph.Invalidate();
                 }
             }
-
             foreach (var edge in _edges.ToList())
             {
                 if (edge.EdgeLineGraphicsPath.IsVisible(x, y) || edge.EdgeArrowGraphicsPath.IsVisible(x, y))
@@ -364,14 +380,11 @@ namespace MaxNetworkPathFindingAlgorithm
             }
         }
 
-        private void TransformVertex(int x, int y)
+        private void TransformVertex(Vertex vertex, int x, int y)
         {
-            foreach (var vertex in _vertices)
+            if (x > 0 && x < pictureBoxGraph.Width && y > 0 && y < pictureBoxGraph.Height)
             {
-                if (vertex.IsSelected)
-                {
-                    vertex.ChangePosition(x, y);
-                }
+                vertex.ChangePosition(x, y);
             }
         }
 
@@ -383,8 +396,7 @@ namespace MaxNetworkPathFindingAlgorithm
                     return;
             }
 
-            var graphicsLine = CreateGraphicsPath(CreateLinePath(v1.X, v1.Y, v2.X, v2.Y));
-
+            var graphicsLine = CreateGraphicsPath(CreateLinePath(v1.X, v1.Y, v2.X, v2.Y, 0));
             var graphicsArrow = CreateGraphicsPath(CreateArrowPath(v2.ArrowConnectPoint.X, v2.ArrowConnectPoint.Y));
 
             FormEdgeDialog formEdgeDialog = new FormEdgeDialog(this);
@@ -397,7 +409,6 @@ namespace MaxNetworkPathFindingAlgorithm
 
                 _edges.Add(egde);
             }
-
             _firstSelectedVertex = null;
             _lastSelectedVertex = null;
         }
@@ -417,23 +428,18 @@ namespace MaxNetworkPathFindingAlgorithm
                 string number = $"{vertex.Number}";
 
                 var offsetX = vertex.VertexGraphicsPath.GetBounds().Width / (2.5f + (number.Length == 2 ? -0.5f : 1));
-
                 var offsetY = vertex.VertexGraphicsPath.GetBounds().Height / 2.5f;
 
                 if (vertex.IsSelected && (_graphAction == GraphActions.TransformVertex || _graphAction == GraphActions.ConnectVertices || _graphAction == GraphActions.Remove))
                 {
                     graphics.DrawPath(new Pen(Color.Red, _thickness), vertex.VertexGraphicsPath);
-
                     graphics.FillPath(Brushes.LightCyan, vertex.VertexGraphicsPath);
-
                     graphics.DrawString(number, _font, Brushes.Gray, vertex.X - offsetX, vertex.Y - offsetY);
                 }
                 else if (_firstSelectedVertex == vertex)
                 {
                     graphics.DrawPath(new Pen(Color.DarkRed, _thickness), vertex.VertexGraphicsPath);
-
                     graphics.FillPath(Brushes.PaleVioletRed, _firstSelectedVertex.VertexGraphicsPath);
-
                     graphics.DrawString(number, _font, Brushes.DarkRed, vertex.X - offsetX, vertex.Y - offsetY);
                 }
                 else if (_isPathFinded && _graphAction == GraphActions.FindMaxPath)
@@ -443,32 +449,24 @@ namespace MaxNetworkPathFindingAlgorithm
                     if (_verticesPath.Contains(vertex))
                     {
                         graphics.DrawPath(new Pen(Color.Red, _thickness), vertex.VertexGraphicsPath);
-
                         graphics.FillPath(Brushes.LightCyan, vertex.VertexGraphicsPath);
                     }
                     else
                     {
                         graphics.DrawPath(new Pen(Color.Gray, _thickness), vertex.VertexGraphicsPath);
-
-                        graphics.FillPath(Brushes.LightCyan, vertex.VertexGraphicsPath);  
+                        graphics.FillPath(Brushes.LightCyan, vertex.VertexGraphicsPath);
                     }
-
                     graphics.DrawString(number, _font, Brushes.Gray, vertex.X - offsetX, vertex.Y - offsetY);
-
                     graphics.DrawString(vertex.Epsilon.ToString(), font, Brushes.Black, vertex.X, vertex.Y - 3 * _vertexRadius);
                 }
                 else
                 {
                     graphics.DrawPath(new Pen(Color.Gray, _thickness), vertex.VertexGraphicsPath);
-
                     graphics.FillPath(Brushes.LightCyan, vertex.VertexGraphicsPath);
-
                     graphics.DrawString(number, _font, Brushes.Gray, vertex.X - offsetX, vertex.Y - offsetY);
                 }
             }
         }
-
-        private float angle;
 
         private void RedrawEdges(Graphics graphics)
         {
@@ -476,11 +474,11 @@ namespace MaxNetworkPathFindingAlgorithm
             {
                 var matrix = new Matrix();
 
-                angle = (float)(Math.Atan2(edge.V2.Y - edge.V1.Y, edge.V2.X - edge.V1.X) * 180 / Math.PI);
+                float angle = (float)(Math.Atan2(edge.V2.Y - edge.V1.Y, edge.V2.X - edge.V1.X) * 180 / Math.PI);
 
                 matrix.RotateAt(angle, new Point((int)edge.V2.X, (int)edge.V2.Y));
 
-                GraphicsPath line = CreateGraphicsPath(CreateLinePath(edge.V1.X, edge.V1.Y, edge.V2.X, edge.V2.Y));
+                GraphicsPath line = CreateGraphicsPath(CreateLinePath(edge.V1.X, edge.V1.Y, edge.V2.X, edge.V2.Y, angle));
                 GraphicsPath arrow = CreateGraphicsPath(CreateArrowPath(edge.V2.ArrowConnectPoint.X, edge.V2.ArrowConnectPoint.Y));
 
                 edge.ChangeGraphicsPaths(line, arrow);
@@ -543,7 +541,7 @@ namespace MaxNetworkPathFindingAlgorithm
             return SvgDocument.FromSvg<SvgDocument>(svgStringData).Path;
         }
 
-        private string CreateLinePath(float x1, float y1, float x2, float y2)
+        private string CreateLinePath(float x1, float y1, float x2, float y2, float angle)
         {
             float offsetMul = 1.5f;
 
