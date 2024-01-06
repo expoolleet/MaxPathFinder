@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Web.ModelBinding;
 using System.Windows.Forms;
 using MaxNetworkPathFindingAlgorithm.Classes;
 using Svg;
@@ -11,7 +12,7 @@ namespace MaxNetworkPathFindingAlgorithm
 {
     public enum GraphActions
     {
-        TransformVertex,
+        Transform,
         AddVertex,
         Remove,
         ConnectVertices,
@@ -20,7 +21,7 @@ namespace MaxNetworkPathFindingAlgorithm
 
     public partial class MainForm : Form
     {
-        private GraphActions _graphAction = GraphActions.TransformVertex;
+        private GraphActions _graphAction = GraphActions.Transform;
 
         private int _vertexCount;
 
@@ -54,6 +55,14 @@ namespace MaxNetworkPathFindingAlgorithm
         {
             InitializeComponent();
 
+            Size screenSize = new Size()
+            {
+                Width = Screen.PrimaryScreen.Bounds.Width,
+                Height = Screen.PrimaryScreen.Bounds.Height
+            };
+
+            MaximumSize = screenSize;
+
             _bitmap = new Bitmap(MaximumSize.Width, MaximumSize.Height);
 
             pictureBoxGraph.Image = _bitmap;
@@ -86,14 +95,18 @@ namespace MaxNetworkPathFindingAlgorithm
             CancelVertexConnectionOrAlgorithm();
         }
 
+        Point point = new Point(0, 0);
+
         private void pictureBoxGraph_MouseDown(object sender, MouseEventArgs e)
         {
             switch (_graphAction)
             {
-                case GraphActions.TransformVertex:
+                case GraphActions.Transform:
                     if (e.Button == MouseButtons.Left)
                     {
                         _isVertexDragActionEnabled = true;
+                        point.X = e.X;
+                        point.Y = e.Y;
                     }
                     break;
                 default:
@@ -105,7 +118,7 @@ namespace MaxNetworkPathFindingAlgorithm
         {
             switch (_graphAction)
             {
-                case GraphActions.TransformVertex:
+                case GraphActions.Transform:
                     if (e.Button == MouseButtons.Right)
                     {
                         foreach (var vertex in _vertices)
@@ -199,6 +212,18 @@ namespace MaxNetworkPathFindingAlgorithm
 
         private void pictureBoxGraph_MouseMove(object sender, MouseEventArgs e)
         {
+            //if (_isVertexDragActionEnabled)
+            //{
+            //    var offsetX = e.X - point.X;
+            //    var offsetY = e.Y - point.Y;
+
+            //    foreach (var vertex in _vertices)
+            //    {
+            //        TransformVertex(vertex, (int)(vertex.X + offsetX * 0.1), (int)(vertex.Y + offsetY * 0.1));
+            //        //pictureBoxGraph.Invalidate();
+            //    }
+            //}
+
             if (TryGetSelectedVertex(out Vertex selectedVertex) && _isVertexDragActionEnabled)
             {
                 TransformVertex(selectedVertex, e.X, e.Y);
@@ -240,7 +265,6 @@ namespace MaxNetworkPathFindingAlgorithm
                     v = vertex;
                     return true;
                 }
-
             }
             v = null;
             return false;
@@ -258,7 +282,7 @@ namespace MaxNetworkPathFindingAlgorithm
 
         private void pictureBoxGraph_MouseUp(object sender, MouseEventArgs e)
         {
-            if ((_graphAction == GraphActions.TransformVertex || _graphAction == GraphActions.ConnectVertices || _graphAction == GraphActions.Remove))
+            if ((_graphAction == GraphActions.Transform || _graphAction == GraphActions.ConnectVertices || _graphAction == GraphActions.Remove))
             {
                 _isVertexDragActionEnabled = false;
             }
@@ -277,7 +301,7 @@ namespace MaxNetworkPathFindingAlgorithm
 
         private void buttonVertexTransform_Click(object sender, EventArgs e)
         {
-            _graphAction = GraphActions.TransformVertex;
+            _graphAction = GraphActions.Transform;
             CancelVertexConnectionOrAlgorithm();
             toolStripStatusLabel.Text = "Выбранное действие: " + buttonVertexTransform.Text;
         }
@@ -386,6 +410,8 @@ namespace MaxNetworkPathFindingAlgorithm
             {
                 vertex.ChangePosition(x, y);
             }
+
+            // vertex.ChangePosition(x, y);
         }
 
         private void ConnectVertex(Vertex v1, Vertex v2)
@@ -430,7 +456,7 @@ namespace MaxNetworkPathFindingAlgorithm
                 var offsetX = vertex.VertexGraphicsPath.GetBounds().Width / (2.5f + (number.Length == 2 ? -0.5f : 1));
                 var offsetY = vertex.VertexGraphicsPath.GetBounds().Height / 2.5f;
 
-                if (vertex.IsSelected && (_graphAction == GraphActions.TransformVertex || _graphAction == GraphActions.ConnectVertices || _graphAction == GraphActions.Remove))
+                if (vertex.IsSelected && (_graphAction == GraphActions.Transform || _graphAction == GraphActions.ConnectVertices || _graphAction == GraphActions.Remove))
                 {
                     graphics.DrawPath(new Pen(Color.Red, _thickness), vertex.VertexGraphicsPath);
                     graphics.FillPath(Brushes.LightCyan, vertex.VertexGraphicsPath);
