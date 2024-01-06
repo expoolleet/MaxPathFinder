@@ -29,7 +29,7 @@ namespace MaxNetworkPathFindingAlgorithm
         private float _sizeMul = 1.5f;
 
         private float _thickness = 7;
-
+        private float fdsdfsa;
         private bool _isVertexDragActionEnabled = false;
 
         private bool _isPathFinded = false;
