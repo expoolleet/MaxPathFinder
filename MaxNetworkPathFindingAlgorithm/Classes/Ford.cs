@@ -48,6 +48,27 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
                 }
             }
 
+           
+
+            if (potentialEdge != null && potentialEdge.Length == v2.Epsilon)
+            {
+                return pathVertices;
+            }
+            for (int i = vertices.IndexOf(v2); i >= 0; i--)
+            {
+                foreach (var edge in pathEdges)
+                {
+                    if (edge.IsLastVertex(vertices[i]))
+                    {
+                        if (!pathVertices.Contains(edge.V1))
+                        {
+                            pathVertices.Add(edge.V1);
+                            i = edge.V1.Number;
+                        }
+                    }
+                }
+            }
+            Vertex.SortListByNumbers(pathVertices);
             vertices[vertices.IndexOf(v2)].EpsilonLate = v2.Epsilon;
             for (int i = vertices.IndexOf(v2) - 1; i >= vertices.IndexOf(v1); i--)
             {
@@ -75,27 +96,6 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
                     pathEdges.Add(edges[edgeIndex]);
                 }
             }
-
-            if (potentialEdge != null && potentialEdge.Length == v2.Epsilon)
-            {
-                return pathVertices;
-            }
-            for (int i = vertices.IndexOf(v2); i >= 0; i--)
-            {
-                foreach (var edge in pathEdges)
-                {
-                    if (edge.IsLastVertex(vertices[i]))
-                    {
-                        if (!pathVertices.Contains(edge.V1))
-                        {
-                            pathVertices.Add(edge.V1);
-                            i = edge.V1.Number;
-                        }
-                    }
-                }
-            }
-            Vertex.SortListByNumbers(pathVertices);
-
             return pathVertices;
         }
     }

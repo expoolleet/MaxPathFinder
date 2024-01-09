@@ -16,5 +16,10 @@ namespace MaxNetworkPathFindingAlgorithm
         {
             _mainForm.OnKeyPressed(sender, e);
         }
+
+        private void FormVertexDialog_Load(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }

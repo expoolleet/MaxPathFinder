@@ -115,6 +115,8 @@ namespace MaxNetworkPathFindingAlgorithm
             ConnectVertexWithGivenLength(v9, v10, 5);
 
             pictureBoxGraph.Invalidate();
+
+            //Red
         }
 
         private Vertex GetAddedVertex(int x, int y)
@@ -281,8 +283,6 @@ namespace MaxNetworkPathFindingAlgorithm
                                 }
                                 formdata.dataGridView1.DataSource = dt;
                                 formdata.Show();
-
-                                //TextBoxedgelength
                             }
                         }
                         pictureBoxGraph.Invalidate();
