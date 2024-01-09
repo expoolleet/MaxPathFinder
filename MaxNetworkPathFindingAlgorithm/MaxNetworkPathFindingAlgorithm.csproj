@@ -87,6 +87,12 @@
     <Compile Include="Classes\Edge.cs" />
     <Compile Include="Classes\Ford.cs" />
     <Compile Include="Classes\Vertex.cs" />
+    <Compile Include="FormDataGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDataGrid.Designer.cs">
+      <DependentUpon>FormDataGrid.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormEdgeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormDataGrid.resx">
+      <DependentUpon>FormDataGrid.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormEdgeDialog.resx">
       <DependentUpon>FormEdgeDialog.cs</DependentUpon>
     </EmbeddedResource>

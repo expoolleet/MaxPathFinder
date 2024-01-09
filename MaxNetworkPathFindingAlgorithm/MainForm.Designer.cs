@@ -177,7 +177,7 @@
             this.groupBox2.Size = new System.Drawing.Size(164, 67);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Алгоритм Форда";
+            this.groupBox2.Text = "Крит. путь";
             // 
             // buttonFord
             // 
@@ -303,7 +303,7 @@
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Построение графа / Поиск наибольшего пути в сети";
+            this.Text = "Поиск критического пути";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseClick);

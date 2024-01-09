@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -189,6 +190,37 @@ namespace MaxNetworkPathFindingAlgorithm
                                 {
                                     textBoxPath.Text += (i != _verticesPath.Count - 1) ? $"{_verticesPath[i].Number}, " : $"{_verticesPath[i].Number}" + "}";
                                 }
+
+                                FormDataGrid formdata = new FormDataGrid();
+
+                                DataTable dt = new DataTable();
+
+                                dt.Columns.Add("Работа (i;j)");
+                                dt.Columns.Add("t");
+                                dt.Columns.Add("T(раннее начало)");
+                                dt.Columns.Add("T(позднее начало)");
+                                dt.Columns.Add("T(раннее окончание)");
+                                dt.Columns.Add("T(позднее окончание)");
+                                dt.Columns.Add("R(полный резерв)");
+                                dt.Columns.Add("R(свободный резерв)");
+                                dt.Columns.Add("R(независимый резерв)");
+                                foreach (var ver in _vertices)
+                                {
+                                    //     dt.Rows.Add(ver.Number, "text_");
+                                }
+                                foreach (var edge in _edges)
+                                {
+                                    dt.Rows.Add($"({edge.V1.Number}; {edge.V2.Number})", edge.Length, edge.V2.Epsilon, _vertices[2].Epsilon);
+                                }
+                                for (int i = 1; i < 10; i++)
+                                {
+                                    //      dt.Rows.Add(_edges[1], "text_" + i, 1);
+
+                                }
+                                formdata.dataGridView1.DataSource = dt;
+                                formdata.Show();
+
+                                //TextBoxedgelength
                             }
                         }
                         pictureBoxGraph.Invalidate();
@@ -308,6 +340,8 @@ namespace MaxNetworkPathFindingAlgorithm
             _graphAction = GraphActions.FindMaxPath;
             CancelVertexConnectionOrAlgorithm();
             toolStripStatusLabel.Text = "Выбранное действие: " + buttonFord.Text;
+            
+
         }
 
         private void buttonDeleteGraph_Click(object sender, EventArgs e)
@@ -628,7 +662,7 @@ namespace MaxNetworkPathFindingAlgorithm
 
         private void buttonAuthor_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Автором программы является студент ПГУ им. Шевченко Щербак Георгий", "Проект курсовой работы", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Автором программы является студент ПГУ им. Шевченко Стоянов Роман", "Проект курсовой работы", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
