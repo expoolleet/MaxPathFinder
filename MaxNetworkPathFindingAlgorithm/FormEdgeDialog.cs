@@ -17,5 +17,10 @@ namespace MaxNetworkPathFindingAlgorithm
         {
             _mainForm.OnKeyPressed(sender, e);
         }
+
+        private void FormEdgeDialog_Load(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }

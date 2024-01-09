@@ -29,7 +29,10 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
         {
             return V2 == v;
         }
-
+        public bool IsFirstVertex(Vertex v)
+        {
+            return V1 == v;
+        }
         public bool ContainsVertex(Vertex v)
         {
             return V1 == v || V2 == v;

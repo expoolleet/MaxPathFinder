@@ -24,6 +24,8 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
         
         public float Epsilon { get; set; }
 
+        public float EpsilonLate { get; set; }
+
         public GraphicsPath VertexGraphicsPath { get; private set; }
 
         public EdgeConnectPoint ArrowConnectPoint { get; private set; }

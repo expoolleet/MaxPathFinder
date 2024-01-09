@@ -80,6 +80,76 @@ namespace MaxNetworkPathFindingAlgorithm
         private void MainForm_Load(object sender, EventArgs e)
         {
             ResetGraph();
+            LoadGraph();
+        }
+
+        private void LoadGraph()
+        {
+            var v1 = GetAddedVertex(30, 200);
+            var v2 = GetAddedVertex(150, 200);
+            var v3 = GetAddedVertex(300, 50);
+            var v4 = GetAddedVertex(300, 200);
+            var v5 = GetAddedVertex(400, 200);
+            var v6 = GetAddedVertex(400, 350);
+            var v7 = GetAddedVertex(550, 200);
+            var v8 = GetAddedVertex(700, 200);
+            var v9 = GetAddedVertex(700, 350);
+            var v10 = GetAddedVertex(900, 350);
+
+            ConnectVertexWithGivenLength(v1, v2, 5);
+            ConnectVertexWithGivenLength(v2, v3, 4);
+            ConnectVertexWithGivenLength(v2, v4, 10);
+            ConnectVertexWithGivenLength(v2, v6, 15);
+            ConnectVertexWithGivenLength(v3, v4, 0);
+            ConnectVertexWithGivenLength(v3, v5, 7);
+            ConnectVertexWithGivenLength(v3, v7, 30);
+            ConnectVertexWithGivenLength(v4, v6, 15);
+            ConnectVertexWithGivenLength(v4, v5, 10);
+            ConnectVertexWithGivenLength(v5, v6, 0);
+            ConnectVertexWithGivenLength(v5, v7, 3);
+            ConnectVertexWithGivenLength(v6, v7, 2);
+            ConnectVertexWithGivenLength(v6, v9, 15);
+            ConnectVertexWithGivenLength(v7, v8, 2);
+            ConnectVertexWithGivenLength(v7, v9, 2);
+            ConnectVertexWithGivenLength(v8, v9, 0);
+            ConnectVertexWithGivenLength(v9, v10, 5);
+
+            pictureBoxGraph.Invalidate();
+        }
+
+        private Vertex GetAddedVertex(int x, int y)
+        {
+            if (_vertexCount > 99)
+                return null;
+
+            var graphicsPath = CreateGraphicsPath(_vertexSvgStringData);
+
+            float X = x - graphicsPath.GetBounds().Width * _sizeMul / 2;
+            float Y = y - graphicsPath.GetBounds().Height * _sizeMul / 2;
+
+            graphicsPath.Transform(new Matrix(1 * _sizeMul, 0, 0, 1 * _sizeMul, X, Y));
+
+            var vertex = new Vertex(x, y, _vertexRadius, ++_vertexCount, graphicsPath);
+
+            _vertices.Add(vertex);
+
+            return vertex;
+        }
+
+        private void ConnectVertexWithGivenLength(Vertex v1, Vertex v2, float length)
+        {
+            foreach (var edge in _edges)
+            {
+                if (edge.ContainsVertices(v1, v2))
+                    return;
+            }
+
+            var graphicsLine = CreateGraphicsPath(CreateLinePath(v1.X, v1.Y, v2.X, v2.Y, 0));
+            var graphicsArrow = CreateGraphicsPath(CreateArrowPath(v2.ArrowConnectPoint.X, v2.ArrowConnectPoint.Y));
+
+            var egde = new Edge(v1, v2, length, graphicsLine, graphicsArrow);
+
+            _edges.Add(egde);
         }
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
@@ -204,17 +274,9 @@ namespace MaxNetworkPathFindingAlgorithm
                                 dt.Columns.Add("R(полный резерв)");
                                 dt.Columns.Add("R(свободный резерв)");
                                 dt.Columns.Add("R(независимый резерв)");
-                                foreach (var ver in _vertices)
-                                {
-                                    //     dt.Rows.Add(ver.Number, "text_");
-                                }
                                 foreach (var edge in _edges)
                                 {
-                                    dt.Rows.Add($"({edge.V1.Number}; {edge.V2.Number})", edge.Length, edge.V2.Epsilon, _vertices[2].Epsilon);
-                                }
-                                for (int i = 1; i < 10; i++)
-                                {
-                                    //      dt.Rows.Add(_edges[1], "text_" + i, 1);
+                                    dt.Rows.Add($"({edge.V1.Number}; {edge.V2.Number})", edge.Length, edge.V1.Epsilon, edge.V2.EpsilonLate - edge.Length, edge.V1.Epsilon + edge.Length, edge.V2.EpsilonLate, edge.V2.EpsilonLate - edge.V1.Epsilon - edge.Length, edge.V2.Epsilon - edge.V1.Epsilon - edge.Length, Math.Max(0, edge.V2.Epsilon - edge.V1.EpsilonLate - edge.Length));
 
                                 }
                                 formdata.dataGridView1.DataSource = dt;
@@ -492,6 +554,7 @@ namespace MaxNetworkPathFindingAlgorithm
                     }
                     graphics.DrawString(number, _font, Brushes.Gray, vertex.X - offsetX, vertex.Y - offsetY);
                     graphics.DrawString(vertex.Epsilon.ToString(), font, Brushes.Black, vertex.X, vertex.Y - 3 * _vertexRadius);
+                    graphics.DrawString(vertex.EpsilonLate.ToString(), font, Brushes.DarkBlue, vertex.X + 35, vertex.Y - 3 * _vertexRadius);
                 }
                 else
                 {

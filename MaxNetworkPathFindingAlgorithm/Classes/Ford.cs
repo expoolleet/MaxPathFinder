@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace MaxNetworkPathFindingAlgorithm.Classes
 {
@@ -46,6 +47,35 @@ namespace MaxNetworkPathFindingAlgorithm.Classes
                     pathEdges.Add(edges[edgeIndex]);
                 }
             }
+
+            vertices[vertices.IndexOf(v2)].EpsilonLate = v2.Epsilon;
+            for (int i = vertices.IndexOf(v2) - 1; i >= vertices.IndexOf(v1); i--)
+            {
+                float min = vertices[i + 1].EpsilonLate;
+
+                for (int j = 0; j < edges.Count; j++)
+                {
+                    if (edges[j].IsFirstVertex(vertices[i]))
+                    {
+                        if (edges[j].ContainsVertices(v1, v2))
+                        {
+                            potentialEdge = edges[j];
+                        }
+                        if ((edges[j].V2.EpsilonLate - edges[j].Length) < min)
+                        {
+                            min = edges[j].V2.EpsilonLate - edges[j].Length;
+                            edgeIndex = j;
+                        }
+                    }
+                }
+                vertices[i].EpsilonLate = min;
+
+                if (edges.Count != 0)
+                {
+                    pathEdges.Add(edges[edgeIndex]);
+                }
+            }
+
             if (potentialEdge != null && potentialEdge.Length == v2.Epsilon)
             {
                 return pathVertices;
